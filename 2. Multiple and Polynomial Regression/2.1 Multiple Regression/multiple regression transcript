@@ -1,0 +1,135 @@
+PAVLOS PROTOPAPAS: If you have to get someone's height,
+would you rather be told their weight only, their weight and sex, the weight,
+sex and income, the weight, sex, income, and favorite number?
+Of course, you will always want as much data about a person as possible.
+Even though height and favorite number may not be strongly related,
+at worst, you could just ignore the information on the favorite number.
+What we want, we want our models to be able to take in a lot of data
+as they make their predictions.
+So let's go back to our simple linear regression.
+We have a relationship between x and y through a function
+of x, and that relationship was a linear relationship, And if we
+plot the data, just a straight line.
+Now, we want to include more than one predictor, x1 and x2.
+Now, we have three-dimensional relationship, x1, x2,
+and a y related to x1, x2 through a function f of x1 and x2.
+Now the model will predict a hyperplane.
+Now, why do we want to have more than one predictor?
+Well, it is very unlikely that any response variable will only
+depend on one predictor.
+Rather, we expect that it's a function of multiple predictors.
+And now using the notation we introduced last lecture,
+X will have X1, X2, X3, all the way to X j.
+Now, in this case, we can still make the same assumption, i.e.
+F depends on X linearly.
+So f of X1, X2, X j will be equal to beta 0 plus beta
+1 x1, plus beta 2 x2, all the way to beta j x j.
+Now, let's go back to our data matrix.
+In the last section, we talked about the simple linear regression.
+So we have only one predictor.
+In the example we examined last time, the advertising data,
+we have one predictor was one column, the TV budget.
+Now when we include more than one predictor,
+we're going to have more than one column.
+Now we're going to include TV budget, radio budget, and newspaper budget.
+Now, we want to have a formal list that will
+allow us to include more than one predictor,
+and we want to be able to find the optimal values for these coefficients.
+To do that we're going to start from very simple equation.
+We're going to start one observation at a time.
+So in the example of the advertising data,
+we have for the first observation, we have the sales--
+sales of the first observation-- to be equal to beta
+0 plus beta 1, the TV budget, plus beta 2, the radio budget,
+plus beta 3, the newspaper budget.
+Similarly for the second observation, the sales of the observation 2
+will be beta 0 plus beta 1 TV 2, plus beta 2 radio 2, plus beta 3
+newspaper 2.
+And this relationship will go to all observations until observation n.
+Now let's get the first equation.
+The first line, sales 1, again, is beta 0 plus beta 1 TV 1, beta 2 radio
+1, beta 3 newspaper 1.
+We can rewrite this equation in a little bit nicer form.
+So the sales 1 for observation 1 would be
+beta 0 plus a vector which consists of the TV, radio, and newspaper budget
+times another vector which consists of the beta 1, beta 2, and beta 3.
+The same relation, again, for observation 2-- sales
+2 will be equal to beta 0 plus now a vector that
+consists of the budgets for observation 2, TV, radio, and newspaper, times,
+again, the coefficient vector, beta 1 beta 2 beta 3.
+This the relation goes to all observations.
+We're going to do one extra trick.
+What are we going to do?
+We're going to take the beta 0 and we're going to put it
+into the vector of coefficients.
+And then we add an extra column in the data matrix which consists of 1's.
+Now, the left-hand side, which is a vector of the cells,
+we call Y. The matrix we call X. And the coefficient vectors we call beta.
+Now the equation is very simple--
+Y is equal to X times beta.
+In order to proceed, we need to review two concepts.
+The first one, what is the transpose of the matrix?
+If we have a matrix X which has two columns and n rows,
+the transpose of that matrix will take the rows
+and make them into columns, and columns, makes them into rows.
+We can perform the transpose of this matrix using NumPy.
+And NumPy has the method transpose that can do that for us.
+The second concept we want is the inverse of the matrix.
+We know that the inverse of a number is 1 over n.
+So if we multiply n times 1 over n, it gives us 1.
+Now, the inverse of the matrix is equivalently
+multiply A times the inverse of the A will give me
+the identical matrix, which is 1 on the diagonals and 0 anywhere else.
+Now, we denote that the inverse of the matrix is A to the minus 1 power.
+Again, we can use NumPy to do that.
+So if I have, for example, an array which has four elements--
+two rows and two columns, one, two, three, four--
+I can find the inverse of the matrix by using NumPy dot linear algebra.
+The method inverse will give me the inverse.
+Now I can confirm that the inverse is the inverse of the matrix by taking
+the dot product using NumPy np dot dot, and find out that actually, that
+gives me the identity matrix.
+Now, with this in hand and our new notation,
+our model takes a simple algebraic form.
+Y is equal to X beta.
+Now we have to write our loss function using this new notation.
+Our loss function will be the MSE and the MSE
+is the average of the square of the residuals.
+So we take 1 over n to take the average, and we write the residuals
+as y minus x beta.
+Now, you may wonder where is the sum here.
+Those double vertical lines designate the dot product, which
+is going to give us the sum product.
+Now, we know from last time in order to find
+the optimal values of beta, what we have to do
+is to take the partial derivatives of the loss function and equate to 0.
+We're going to do the same here.
+We take the partial derivative of our loss function, which
+is the MSE with respect to beta, which I'm
+showing in that equation, which is equal to minus 2 X transpose times Y minus X
+beta.
+Now, we need to set that to 0.
+I'm going to ignore the minus 2 because that
+doesn't affect what the value of beta will be to give me this equation
+to be equal to 0.
+Starting from that, I'm going to first multiply
+X T with the elements of the parentheses and then rearrange the terms.
+So I have X transpose X beta equals to X transpose Y. Next step,
+I'm going to try to do a trick that we learned a minute ago.
+We're going to multiply both sides of the equation
+by the inverse of X transpose X.
+So what I'm going to end up is X transpose X inverse times X transpose X
+beta equals to X transpose X inverse X transpose Y. Now,
+the left-hand side, because I'm multiplying
+the inverse of the matrix with the matrix,
+is going to be the identity matrix.
+And eventually, I'm going to get beta is equal to X transpose
+X, inverse of that, X transpose Y.
+Now let's recap.
+We started with the simple algebraic from in vector notation,
+Y is equal to X beta.
+We wrote our MSE, again, in vector notation.
+We took the partial derivative of the MSE with respect to beta.
+We equate them to 0 and we find a solution.
+And that gives us the nice equation we have on the bottom,
+beta hat is equal to X transpose X inverse X transpose Y.
